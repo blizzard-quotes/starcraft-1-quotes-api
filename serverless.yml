@@ -1,0 +1,134 @@
+# Serverless configuration for sc.blizzardquotes.com
+service: blizzard-quotes-sc-api
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: ${opt:stage, 'dev'}
+  profile: ${opt:profile, 'blizzard-quotes'}
+  region: ${opt:region, 'us-east-1'}
+  logRetentionInDays: 14
+  deploymentBucket:
+    name: ${self:service}${self:custom.suffix.${self:provider.stage}}
+    serverSideEncryption: AES256
+
+package:
+  exclude:
+    - '*'
+    - '*/**'
+  include:
+    - node_modules/@blizzard-quotes/starcraft-1-quotes/**
+    - node_modules/validator/**
+    - src/utils/**
+    - src/**
+
+plugins:
+  - serverless-deployment-bucket
+  - serverless-domain-manager
+  - serverless-stage-manager
+
+custom:
+  customDomain:
+    basePath: ''
+    certificateName: 'sc.blizzardquotes.com'
+    domainName: ${self:custom.prefix.${self:provider.stage}}api.sc.blizzardquotes.com
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+    enabled: true
+  suffix:
+    dev: -dev
+    test: -test
+    prod: ''
+  prefix:
+    dev: dev.
+    test: test.
+    prod: ''
+  stages:
+    - dev
+    - test
+    - prod
+
+functions:
+  quotes:
+    handler: src/v1/handler.quotes
+    events:
+      - http:
+          path: v1/quotes
+          method: get
+          cors: true
+          request:
+            parameters:
+              querystrings:
+                text: false
+                faction: false
+                unit: false
+                action: false
+                not_text: false
+                not_faction: false
+                not_unit: false
+                not_action: false
+                is_hero: false
+                is_melee: false
+                limit: false
+                offset: false
+  quotesRandom:
+    handler: src/v1/handler.quotesRandom
+    events:
+      - http:
+          path: v1/quotes/random
+          method: get
+          cors: true
+          request:
+            parameters:
+              querystrings:
+                text: false
+                faction: false
+                unit: false
+                action: false
+                not_text: false
+                not_faction: false
+                not_unit: false
+                not_action: false
+                is_hero: false
+                is_melee: false
+  quotesId:
+    handler: src/v1/handler.quotesId
+    events:
+      - http:
+          path: v1/quotes/{id}
+          method: get
+          cors: true
+          request:
+            parameters:
+              paths:
+                id: true
+  factions:
+    handler: src/v1/handler.factions
+    events:
+      - http:
+          path: v1/factions
+          method: get
+          cors: true
+  units:
+    handler: src/v1/handler.units
+    events:
+      - http:
+          path: v1/units
+          method: get
+          cors: true
+          request:
+            parameters:
+              querystrings:
+                faction: false
+                not_faction: false
+                is_hero: false
+                is_melee: false
+                limit: false
+                offset: false
+  actions:
+    handler: src/v1/handler.actions
+    events:
+      - http:
+          path: v1/actions
+          method: get
+          cors: true

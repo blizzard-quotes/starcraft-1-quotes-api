@@ -1,0 +1,26 @@
+= Starcraft I Quotes API
+:toc:
+
+== Summary
+
+Deploys a serverless API for retrieving Starcraft quotes (the original game).
+Includes selectable melee unit and selectable campaign unit quotes.
+
+Uses the serverless framework along with AWS.
+
+Swagger ui url: swagger.sc.blizzardquotes.com
+
+Quotes repository: https://github.com/blizzard-quotes/starcraft-1-quotes
+
+== Test
+
+* `npm run test`
+
+== Deploy
+
+* `serverless create_domain --stage dev/test/prod`
+* `serverless deploy --stage dev/test/prod`
+
+== Remove
+
+* `serverless remove --stage dev/test/prod`
