@@ -23,8 +23,8 @@ const parseQueryString = (params, quotes) => {
         queriedQuotes = queriedQuotes.concat(
           quotes.filter(
             elem =>
-              elem[queryParam] ===
-              param.charAt(0).toUpperCase() + param.slice(1).toLowerCase()
+              elem[queryParam].toLowerCase() ===
+              decodeURIComponent(param.toLowerCase())
           )
         );
       });
