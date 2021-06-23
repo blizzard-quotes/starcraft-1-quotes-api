@@ -26,9 +26,9 @@
     "validator": "^12.2.0"
   },
   "devDependencies": {
-    "jest": "^25.1.0",
-    "serverless-deployment-bucket": "^1.1.1",
-    "serverless-domain-manager": "^3.3.1",
+    "jest": "^25.5.4",
+    "serverless-deployment-bucket": "^1.5.1",
+    "serverless-domain-manager": "^3.3.2",
     "serverless-stage-manager": "^1.0.5"
   }
 }
