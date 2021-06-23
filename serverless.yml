@@ -3,7 +3,7 @@ service: blizzard-quotes-sc-api
 
 provider:
   name: aws
-  runtime: nodejs10.x
+  runtime: nodejs14.x
   stage: ${opt:stage, 'dev'}
   profile: ${opt:profile, 'blizzard-quotes'}
   region: ${opt:region, 'us-east-1'}

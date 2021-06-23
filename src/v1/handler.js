@@ -17,9 +17,9 @@ const MESSAGE_INTERNAL_SERVER_ERROR = 'Internal server error';
 const response = (statusCode, body) => ({
   statusCode: statusCode,
   headers: {
-    'Access-Control-Allow-Origin': '*'
+    'Access-Control-Allow-Origin': '*',
   },
-  body: body
+  body: body,
 });
 
 /**
@@ -56,7 +56,7 @@ const uniqueKeyValues = (key, event = {}) => {
       quotes = parseQueryString(params, quotes);
     }
 
-    let uniqueKeyValues = [...new Set(quotes.map(element => element[key]))];
+    let uniqueKeyValues = [...new Set(quotes.map((element) => element[key]))];
 
     if (offset) {
       uniqueKeyValues.splice(0, offset);
@@ -79,7 +79,7 @@ const uniqueKeyValues = (key, event = {}) => {
 /**
  * Returns quotes.  Accepts query parameters.
  */
-module.exports.quotes = async event => {
+module.exports.quotes = async (event) => {
   let params = sanitize(event);
 
   try {
@@ -102,7 +102,7 @@ module.exports.quotes = async event => {
 /**
  * Returns a random quote.  Accepts query parameters.
  */
-module.exports.quotesRandom = async event => {
+module.exports.quotesRandom = async (event) => {
   let params = sanitize(event);
 
   try {
@@ -128,11 +128,11 @@ module.exports.quotesRandom = async event => {
  * Returns a specific quote.  Accepts one parameter which is the id
  * of the quote to return.
  */
-module.exports.quotesId = async event => {
+module.exports.quotesId = async (event) => {
   const id = validator.escape(event['pathParameters']['id']);
 
   try {
-    let quote = starcraft1Quotes.find(quote => {
+    let quote = starcraft1Quotes.find((quote) => {
       return quote['id'] == id;
     });
 
@@ -140,7 +140,7 @@ module.exports.quotesId = async event => {
       return response(
         400,
         JSON.stringify({
-          message: `Invalid request. Quote with id ${id} was not found.`
+          message: `Invalid request. Quote with id ${id} was not found.`,
         })
       );
     }
@@ -165,7 +165,7 @@ module.exports.factions = async () => {
 /**
  * Returns units
  */
-module.exports.units = async event => {
+module.exports.units = async (event) => {
   return uniqueKeyValues('unit', event);
 };
 
