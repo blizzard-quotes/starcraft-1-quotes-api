@@ -5,7 +5,7 @@ provider:
   name: aws
   runtime: nodejs14.x
   stage: ${opt:stage, 'dev'}
-  profile: ${opt:profile, 'blizzard-quotes'}
+  profile: 'blizzard-quotes'
   region: ${opt:region, 'us-east-1'}
   logRetentionInDays: 14
   deploymentBucket:
@@ -13,14 +13,13 @@ provider:
     serverSideEncryption: AES256
 
 package:
-  exclude:
-    - '*'
-    - '*/**'
-  include:
-    - node_modules/@blizzard-quotes/starcraft-1-quotes/**
-    - node_modules/validator/**
-    - src/utils/**
-    - src/**
+  patterns:
+    - '!*'
+    - '!*/**'
+    - 'node_modules/@blizzard-quotes/starcraft-1-quotes/**'
+    - 'node_modules/validator/**'
+    - 'src/utils/**'
+    - 'src/**'
 
 plugins:
   - serverless-deployment-bucket
