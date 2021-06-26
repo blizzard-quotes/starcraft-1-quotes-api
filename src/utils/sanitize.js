@@ -6,7 +6,7 @@ const validator = require('validator');
  * @param {object} event
  * @returns {object} key value pair of parameters being passed in.
  */
-const sanitize = event => {
+const sanitize = (event) => {
   const multiValueQueryStringParams = 'multiValueQueryStringParameters';
   var params = {};
   if (
@@ -18,7 +18,7 @@ const sanitize = event => {
     let elements;
     for (const param in params) {
       elements = [];
-      params[param].forEach(element => {
+      params[param].forEach((element) => {
         if (typeof element === 'string') {
           elements.push(validator.escape(element));
         } else if (typeof element === 'number') {

@@ -19,10 +19,10 @@ const parseQueryString = (params, quotes) => {
       queryParam === 'action'
     ) {
       queriedQuotes = [];
-      queryParams[queryParam].forEach(param => {
+      queryParams[queryParam].forEach((param) => {
         queriedQuotes = queriedQuotes.concat(
           quotes.filter(
-            elem =>
+            (elem) =>
               elem[queryParam].toLowerCase() ===
               decodeURIComponent(param.toLowerCase())
           )
@@ -31,28 +31,28 @@ const parseQueryString = (params, quotes) => {
       quotes = queriedQuotes;
     } else if (queryParam === 'text') {
       queriedQuotes = [];
-      queryParams[queryParam].forEach(param => {
+      queryParams[queryParam].forEach((param) => {
         queriedQuotes = queriedQuotes.concat(
-          quotes.filter(elem => elem['value'].includes(param))
+          quotes.filter((elem) => elem['value'].includes(param))
         );
       });
       quotes = queriedQuotes;
     } else if (queryParam === 'is_hero') {
       queriedQuotes = [];
-      queryParams[queryParam].forEach(param => {
+      queryParams[queryParam].forEach((param) => {
         queriedQuotes = queriedQuotes.concat(
           quotes.filter(
-            elem => elem['isHero'].toString() == param.toLowerCase()
+            (elem) => elem['isHero'].toString() == param.toLowerCase()
           )
         );
       });
       quotes = queriedQuotes;
     } else if (queryParam === 'is_melee') {
       queriedQuotes = [];
-      queryParams[queryParam].forEach(param => {
+      queryParams[queryParam].forEach((param) => {
         queriedQuotes = queriedQuotes.concat(
           quotes.filter(
-            elem => elem['isMelee'].toString() == param.toLowerCase()
+            (elem) => elem['isMelee'].toString() == param.toLowerCase()
           )
         );
       });
@@ -66,9 +66,9 @@ const parseQueryString = (params, quotes) => {
       queryParam === 'not_unit' ||
       queryParam === 'not_action'
     ) {
-      queryParams[queryParam].forEach(param => {
+      queryParams[queryParam].forEach((param) => {
         quotes = quotes.filter(
-          elem =>
+          (elem) =>
             !(
               elem[queryParam.split('_')[1]] ===
               param.charAt(0).toUpperCase() + param.slice(1)
@@ -76,8 +76,8 @@ const parseQueryString = (params, quotes) => {
         );
       });
     } else if (queryParam === 'not_text') {
-      queryParams[queryParam].forEach(param => {
-        quotes = quotes.filter(elem => !elem['value'].includes(param));
+      queryParams[queryParam].forEach((param) => {
+        quotes = quotes.filter((elem) => !elem['value'].includes(param));
       });
     }
   }
